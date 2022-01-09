@@ -1,8 +1,34 @@
-## Welcome to GitHub Pages
+## RumexWeeds: A Grassland Dataset for Agricultural Robotics.
+PDF: [ToDo](https://github.com/RGring/RumexWeeds)
 
-You can use the [editor on GitHub](https://github.com/RGring/RumexWeeds/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Abstract:
+Computer vision can lead towards more sustainable agricultural production by enabling robotic precision agriculture. Vision-equipped robots are being deployed in the fields to handle crops and control weeds. However, publicly available agricultural datasets containing both image data as well as data from additional navigational robot sensors are scarce.
+Our real-world dataset RumexWeeds targets the detection of the grassland weeds: _Rumex obtusifolius L._ and _Rumex crispus L._. RumexWeeds includes whole image sequences instead of individual static images, which is rare for computer vision image datasets yet crucial for robotic applications. It allows for more robust object detection, incorporating temporal aspects and considering different viewpoints of the same object. Furthermore, RumexWeeds includes data from additional navigational robot sensors---GNSS, IMU and odometry---which can increase robustness, when additionally fed to detection models. In total the dataset includes 5,510 images with 15,519 manual bounding box annotations collected at 3 different farms and 4 different days in summer and autumn 2021. Additionally, RumexWeeds includes a subset of 340 ground truth pixels-wise annotations, which are further used to generate segmentation masks for the remaining bounding boxes automatically. The dataset is publicly available at [ToDo](https://github.com/RGring/RumexWeeds).
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Example Images
+
+### File Structure
+
+### Getting Started in Pytorch
+ToDo
+
+### Citation
+
+If you find this work useful in your research, please cite:
+```
+@article{RumexWeeds2021,
+  title={RumexWeeds: A Grassland Dataset for Agricultural Robotics.},
+  author={Güldenring, Ronja and Evert van, Frits and Nalpantidis, Lazaros},
+  booktitle={TBA},
+  year={2021}
+}
+```
+
+
+
+
+
+
 
 ### Markdown
 

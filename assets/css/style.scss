@@ -1,0 +1,52 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.page-header {
+    color: $header-heading-color;
+    text-align: center;
+    background-color: rgb(217, 238, 220);
+    background-image: url(../../imgs/IMG_1662.JPG);
+    background-repeat: no-repeat;
+    height: 500px;
+    width: 100%;
+    // background-size: 100% 50%;
+    background-position: center;
+  
+    @include large {
+      max-width: 100rem;
+      padding: 5rem 6rem;
+      margin: 0 auto;
+    }
+  
+    @include medium {
+      padding: 3rem 4rem;
+    }
+  
+    @include small {
+      padding: 2rem 1rem;
+    }
+  }
+
+  footer {
+    display: none !important;
+  }
+
+  .project-tagline {
+    margin-bottom: 2rem;
+    font-weight: normal;
+    opacity: 0.75;
+  
+    @include large {
+      font-size: 1.3rem;
+    }
+  
+    @include medium {
+      font-size: 1.15rem;
+    }
+  
+    @include small {
+      font-size: 1rem;
+    }
+  }
