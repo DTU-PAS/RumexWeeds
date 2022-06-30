@@ -1,5 +1,6 @@
 theme: jekyll-theme-cayman
 show_downloads: true
+url: "https://rgring.github.io/RumexWeeds"
 title: RumexWeeds
 description: >- # this means to ignore newlines until "baseurl:"
   The real-world dataset RumexWeeds targets the detection of the grassland weeds: 
