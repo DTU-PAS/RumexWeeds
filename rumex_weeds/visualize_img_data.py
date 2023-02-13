@@ -38,10 +38,7 @@ def visualize_boxes(data_folder, img_list, num_images):
 
     for i in range(num_images):
         i = np.random.randint(0, len(dataset))
-        try:
-            img, bboxes, img_info = dataset[i]
-        except:
-            continue
+        img, bboxes, img_info = dataset[i]
         img = tensor_to_rgb(img)
         img = draw_bboxes(img, bboxes)
 
@@ -70,12 +67,7 @@ def visualize_masks(data_folder, img_list, num_images, gt_masks=True):
     while count < num_images:
         i = np.random.randint(0, len(dataset))
 
-        # ToDo: Remove if resolved.
-        try:
-            img, masks, img_info = dataset[i]
-        except Exception as e:
-            print(e)
-            continue
+        img, masks, img_info = dataset[i]
         if sum(sum(sum(masks))) == 0:
             continue
         img = tensor_to_rgb(img)
@@ -110,11 +102,7 @@ def visualize_all(data_folder, img_list, num_images, gt_masks=True):
     count = 0
     while count < num_images:
         i = np.random.randint(0, len(dataset))
-        try:
-            img, bboxes, masks, img_info = dataset[i]
-        except Exception as e:
-            print(e)
-            continue
+        img, bboxes, masks, img_info = dataset[i]
 
         img = tensor_to_rgb(img)
         img = draw_bboxes(img, bboxes)
@@ -152,9 +140,3 @@ if __name__ == "__main__":
         visualize_masks(args.data_folder, img_list, args.num_images, gt_masks=False)
     elif args.visualize_type == "all":
         visualize_all(args.data_folder, img_list, args.num_images, gt_masks=False)
-
-
-
-
-# ToDo:
-# Make sure bboxes do not exceed image boundaries

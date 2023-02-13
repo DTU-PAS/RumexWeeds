@@ -59,37 +59,36 @@ class RumexWeedsDataset(Dataset):
         for ann_file in self.annotation_files:    
             annotation_file = f"{os.path.dirname(f'{self.data_dir}/{id_}')}/{ann_file}"
             img_annotations = AnnotationConverter.read_cvat_by_id(annotation_file, os.path.basename(id_))
-            if img_annotations:
-                img_info["img_height"] = img_annotations.get_img_height()
-                img_info["img_width"] = img_annotations.get_img_width()
-                img_info["file_name"] = id_
-                # Getting the bounding boxes
-                all_bboxes = img_annotations.get_bounding_boxes()
-                for i, bb in enumerate(all_bboxes):
+            img_info["img_height"] = img_annotations.get_img_height()
+            img_info["img_width"] = img_annotations.get_img_width()
+            img_info["file_name"] = id_
+            # Getting the bounding boxes
+            all_bboxes = img_annotations.get_bounding_boxes()
+            for i, bb in enumerate(all_bboxes):
 
-                    if self._classes[0] == "rumex":
-                        obj_id = 0
+                if self._classes[0] == "rumex":
+                    obj_id = 0
+                else:
+                    label = bb.get_label()
+                    if label in self._classes:
+                        obj_id = self._classes.index(label)
                     else:
-                        label = bb.get_label()
-                        if label in self._classes:
-                            obj_id = self._classes.index(label)
-                        else:
-                            continue
-                    x, y, w, h = bb.get_x(), bb.get_y(), bb.get_width(), bb.get_height()
-                    bboxes = np.append(bboxes, [[x, y, w, h, obj_id]], axis=0)
+                        continue
+                x, y, w, h = bb.get_x(), bb.get_y(), bb.get_width(), bb.get_height()
+                bboxes = np.append(bboxes, [[x, y, w, h, obj_id]], axis=0)
 
-                # Getting the corresponding segmentation masks
-                all_polygons = img_annotations.get_polygons()
-                for pol in all_polygons:
-                    if self._classes[0] == "rumex":
-                        obj_id = 0
+            # Getting the corresponding segmentation masks
+            all_polygons = img_annotations.get_polygons()
+            for pol in all_polygons:
+                if self._classes[0] == "rumex":
+                    obj_id = 0
+                else:
+                    label = pol.get_label()
+                    if label in self._classes:
+                        obj_id = self._classes.index(label)
                     else:
-                        label = pol.get_label()
-                        if label in self._classes:
-                            obj_id = self._classes.index(label)
-                        else:
-                            continue
-                    polygons.append(pol)
+                        continue
+                polygons.append(pol)
         return {"bboxes": bboxes, "polygons": polygons, "img_info": img_info}
 
     def load_anno(self, index):
