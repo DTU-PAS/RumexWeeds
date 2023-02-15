@@ -122,7 +122,7 @@ if __name__ == "__main__":
     argparse = argparse.ArgumentParser()
     argparse.add_argument("--data_folder", type=str)
     argparse.add_argument("--num_images", type=int, default=1)
-    argparse.add_argument("--visualize_type", type=str, default="all")
+    argparse.add_argument("--visualize_type", type=str, default="bbox")
     args = argparse.parse_args()
 
     # Load the training data
