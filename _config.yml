@@ -9,4 +9,4 @@ description: >- # this means to ignore newlines until "baseurl:"
   as well as 340 ground truth pixels-wise annotations, collected at 3 different farms and 4 different days in summer and autumn 2021. 
   Additionally, navigational robot sensor points from GNSS, IMU and odometry are recorded.
 github:
-  zip_url: test.zip #ToDo!
+  zip_url: https://data.dtu.dk/ndownloader/files/39268307
