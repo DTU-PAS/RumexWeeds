@@ -1,11 +1,11 @@
 # RumexWeeds: A Grassland Dataset for Agricultural Robotics.
 ## Useful Links:
-* [RumexWeeds Website](https://rgring.github.io/RumexWeeds/)
-* Publication: [ToDo](https://github.com/RGring/RumexWeeds)
-* Dataset: [ToDo](https://github.com/RGring/RumexWeeds)
+* [RumexWeeds Website](https://dtu-pas.github.io/RumexWeeds/)
+* Publication: [ToDo](https://github.com/dtu-pas/RumexWeeds)
+* [Dataset](https://data.dtu.dk/articles/dataset/Data_for_RumexWeeds_A_Grassland_Dataset_for_Agricultural_Robotics_/17040518)
 
 ## Abstract:
-Computer vision can lead towards more sustainable agricultural production by enabling robotic precision agriculture. Vision-equipped robots are being deployed in the fields to handle crops and control weeds. However, publicly available agricultural datasets containing both image data as well as data from additional navigational robot sensors are scarce. Our real-world dataset RumexWeeds targets the detection of the grassland weeds: _Rumex obtusifolius L._ and _Rumex crispus L._. RumexWeeds includes whole image sequences instead of individual static images, which is rare for computer vision image datasets yet crucial for robotic applications. It allows for more robust object detection, incorporating temporal aspects and considering different viewpoints of the same object. Furthermore, RumexWeeds includes data from additional navigational robot sensors—GNSS, IMU and odometry—which can increase robustness, when additionally fed to detection models. In total the dataset includes 5,510 images with 15,519 manual bounding box annotations collected at 3 different farms and 4 different days in summer and autumn 2021. Additionally, RumexWeeds includes a subset of 340 ground truth pixels-wise annotations. The dataset is publicly available at [ToDo](https://github.com/RGring/RumexWeeds).
+Computer vision can lead towards more sustainable agricultural production by enabling robotic precision agriculture. Vision-equipped robots are being deployed in the fields to handle crops and control weeds. However, publicly available agricultural datasets containing both image data as well as data from additional navigational robot sensors are scarce. Our real-world dataset RumexWeeds targets the detection of the grassland weeds: _Rumex obtusifolius L._ and _Rumex crispus L._. RumexWeeds includes whole image sequences instead of individual static images, which is rare for computer vision image datasets yet crucial for robotic applications. It allows for more robust object detection, incorporating temporal aspects and considering different viewpoints of the same object. Furthermore, RumexWeeds includes data from additional navigational robot sensors—GNSS, IMU and odometry—which can increase robustness, when additionally fed to detection models. In total the dataset includes 5,510 images with 15,519 manual bounding box annotations collected at 3 different farms and 4 different days in summer and autumn 2021. Additionally, RumexWeeds includes a subset of 340 ground truth pixels-wise annotations. The dataset is publicly available [here](https://data.dtu.dk/articles/dataset/Data_for_RumexWeeds_A_Grassland_Dataset_for_Agricultural_Robotics_/17040518).
 
 
 ## Example Images
@@ -25,6 +25,10 @@ Sample Sequences can be found here:
 * [20210807_lundholm - Sequence 23](https://www.youtube.com/embed/7OSrtETfVYw)
 
 ## Getting started: Pytorch Dataset Class
+Download data
+```
+wget https://data.dtu.dk/ndownloader/files/39268307
+```
 The Pytorch Datasets allows an easy entrypoint to work with the dataset.
 To visualize some example images, please run.
 ```
@@ -40,6 +44,6 @@ If you find this work useful in your research, please cite:
   title={RumexWeeds: A Grassland Dataset for Agricultural Robotics.},
   author={Güldenring, Ronja and Evert van, Frits and Nalpantidis, Lazaros},
   booktitle={TBA},
-  year={2021}
+  year={2023}
 }
 ```
