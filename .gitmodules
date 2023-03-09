@@ -1,0 +1,3 @@
+[submodule "submodule/Annotation-Converter"]
+	path = submodule/Annotation-Converter
+	url = https://github.com/DTU-PAS/Annotation-Converter.git
