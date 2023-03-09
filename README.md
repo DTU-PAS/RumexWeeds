@@ -29,6 +29,10 @@ Download data
 ```
 wget https://data.dtu.dk/ndownloader/files/39268307
 ```
+Install dependencies
+```
+pip install -r requirements.txt
+```
 The Pytorch Datasets allows an easy entrypoint to work with the dataset.
 To visualize some example images, please run.
 ```
