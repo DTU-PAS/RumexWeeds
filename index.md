@@ -1,5 +1,5 @@
 # RumexWeeds: A Grassland Dataset for Agricultural Robotics.
-Paper: [ToDo](https://github.com/DTU-PAS/RumexWeeds)
+[Paper](https://onlinelibrary.wiley.com/doi/10.1002/rob.22196)
 
 Abstract:
 Computer vision can lead towards more sustainable agricultural production by enabling robotic precision agriculture. Vision-equipped robots are being deployed in the fields to take care of crops and control weeds. However, publicly available agricultural datasets containing both image data as well as data from navigational robot sensors are scarce.
@@ -177,10 +177,14 @@ python rumex_weeds/visualize_img_data.py --data_folder <path-to-your-extracted-R
 
 If you find this work useful in your research, please cite:
 ```
-@article{RumexWeeds2021,
-  title={RumexWeeds: A Grassland Dataset for Agricultural Robotics.},
-  author={Güldenring, Ronja and Evert van, Frits and Nalpantidis, Lazaros},
-  booktitle={TBA},
-  year={2021}
+@article{https://doi.org/10.1002/rob.22196,
+author = {Güldenring, Ronja and van Evert, Frits K. and Nalpantidis, Lazaros},
+title = {RumexWeeds: A grassland dataset for agricultural robotics},
+journal = {Journal of Field Robotics},
+keywords = {agricultural robotics, grassland weed, object detection, precision farming, robotics dataset, Rumex crispus, Rumex obtusifolius},
+doi = {https://doi.org/10.1002/rob.22196},
+url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/rob.22196},
+eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/rob.22196}
 }
+
 ```
