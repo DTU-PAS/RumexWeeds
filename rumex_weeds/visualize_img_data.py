@@ -7,9 +7,18 @@ import numpy as np
 from rumex_weeds.data import RumexWeedsDataset
 from rumex_weeds.data import RumexWeedsBBox
 from rumex_weeds.data import RumexWeedsMask
+from rumex_weeds.data import RumexWeedsEllipse
 
 colors = [(255, 215, 0),
         (255, 69, 0)]
+
+def draw_ellipses(img, ellipses):
+    for i in range(ellipses.shape[0]):
+        t_i = ellipses[i, :]
+        if not np.all((t_i == 0)):
+            cv2.ellipse(img, (int(t_i[0]), int(t_i[1])), (int(t_i[2]), int(t_i[3])), 0, 0, 360, [*colors[int(t_i[4])], 0], 1)
+            cv2.circle(img, (int(t_i[0]), int(t_i[1])), 2, colors[int(t_i[4])], 7)
+    return img
 
 def draw_bboxes(img, bboxes):
     for i in range(bboxes.shape[0]):
@@ -41,6 +50,29 @@ def visualize_boxes(data_folder, img_list, num_images):
         img, bboxes, img_info = dataset[i]
         img = tensor_to_rgb(img)
         img = draw_bboxes(img, bboxes)
+
+        fig, ax = plt.subplots(1, 1, figsize=(16, 8))
+        ax.imshow(img)
+        plt.show()
+
+def visualize_ellipses(data_folder, img_list, num_images):
+    transform = A.Compose([
+        AP.ToTensorV2(),
+    ], bbox_params=A.BboxParams(format='coco', label_fields=['labels']))
+
+    dataset = RumexWeedsEllipse(
+        data_dir=data_folder,
+        image_list=img_list,
+        classes_to_consider=["rumex_obtusifolius", "rumex_crispus"],
+        preproc=transform,
+    )
+
+    for i in range(num_images):
+        i = np.random.randint(0, len(dataset))
+        print(i)
+        img, ellipses, img_info = dataset[i]
+        img = tensor_to_rgb(img)
+        img = draw_ellipses(img, ellipses)
 
         fig, ax = plt.subplots(1, 1, figsize=(16, 8))
         ax.imshow(img)
@@ -102,10 +134,11 @@ def visualize_all(data_folder, img_list, num_images, gt_masks=True):
     count = 0
     while count < num_images:
         i = np.random.randint(0, len(dataset))
-        img, bboxes, masks, img_info = dataset[i]
+        img, bboxes, ellipses, masks, img_info = dataset[i]
 
         img = tensor_to_rgb(img)
         img = draw_bboxes(img, bboxes)
+        img = draw_ellipses(img, ellipses)
 
         mask_img = np.zeros_like(img)
         mask_img[masks[:, :, 0] == 1] = colors[0]
@@ -134,6 +167,8 @@ if __name__ == "__main__":
     
     if args.visualize_type == "bbox":
         visualize_boxes(args.data_folder, img_list, args.num_images)
+    if args.visualize_type == "ellipse":
+        visualize_ellipses(args.data_folder, img_list, args.num_images)
     elif args.visualize_type == "gt_mask":
         visualize_masks(args.data_folder, img_list, args.num_images, gt_masks=True)
     elif args.visualize_type == "mask":

@@ -53,6 +53,7 @@ class RumexWeedsDataset(Dataset):
 
     def _load_anno_from_ids(self, id_):
         bboxes = np.zeros((0, 5))
+        ellipses = np.zeros((0, 5))
         polygons = []
         img_info = {}
 
@@ -62,10 +63,10 @@ class RumexWeedsDataset(Dataset):
             img_info["img_height"] = img_annotations.get_img_height()
             img_info["img_width"] = img_annotations.get_img_width()
             img_info["file_name"] = id_
+
             # Getting the bounding boxes
             all_bboxes = img_annotations.get_bounding_boxes()
             for i, bb in enumerate(all_bboxes):
-
                 if self._classes[0] == "rumex":
                     obj_id = 0
                 else:
@@ -76,6 +77,27 @@ class RumexWeedsDataset(Dataset):
                         continue
                 x, y, w, h = bb.get_x(), bb.get_y(), bb.get_width(), bb.get_height()
                 bboxes = np.append(bboxes, [[x, y, w, h, obj_id]], axis=0)
+
+            # Getting the ellipses
+            all_ellipses = img_annotations.get_ellipses()
+            for i, ell in enumerate(all_ellipses):
+                if self._classes[0] == "rumex":
+                    obj_id = 0
+                else:
+                    label = ell.get_label()
+                    if label in self._classes:
+                        obj_id = self._classes.index(label)
+                    else:
+                        continue
+                x, y, w, h = ell.get_x(), ell.get_y(), ell.get_width(), ell.get_height()
+                if x < 0 or y < 0 or x > img_info["img_width"] or y > img_info["img_height"]:
+                    continue
+                w = min(w, img_info["img_width"] - x)
+                w = min(w, x)
+                h = min(h, img_info["img_height"] - y)
+                h = min(h, y)
+                
+                ellipses = np.append(ellipses, [[x, y, w, h, obj_id]], axis=0)
 
             # Getting the corresponding segmentation masks
             all_polygons = img_annotations.get_polygons()
@@ -89,7 +111,7 @@ class RumexWeedsDataset(Dataset):
                     else:
                         continue
                 polygons.append(pol)
-        return {"bboxes": bboxes, "polygons": polygons, "img_info": img_info}
+        return {"bboxes": bboxes, "ellipses": ellipses, "polygons": polygons, "img_info": img_info}
 
     def load_anno(self, index):
         return self.annotations[index]
@@ -107,6 +129,7 @@ class RumexWeedsDataset(Dataset):
     def __getitem__(self, index):
         ann = self.load_anno(index)
         bboxes = ann["bboxes"]
+        ellipses = ann["ellipses"]
         img = self.load_image(index)
 
         # Let's generate the mask from the polygons
@@ -128,5 +151,5 @@ class RumexWeedsDataset(Dataset):
                 bboxes[:, :4] = transformed["bboxes"]
                 bboxes[:, 4] = transformed["labels"]
 
-        return img, bboxes, mask, ann["img_info"]
+        return img, bboxes, ellipses, mask, ann["img_info"]
 

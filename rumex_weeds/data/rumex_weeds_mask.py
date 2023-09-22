@@ -4,7 +4,6 @@
 import cv2
 import numpy as np
 import os
-from torch.utils.data import Dataset
 
 from annotation_converter.AnnotationConverter import AnnotationConverter
 from rumex_weeds.data import RumexWeedsDataset
