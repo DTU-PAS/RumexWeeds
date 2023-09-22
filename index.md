@@ -7,22 +7,28 @@ Our real-world dataset RumexWeeds targets the detection of the grassland weeds: 
 
 ## Example Sequences
 ### 20210806_hegnstrup - Sequence 17
-<iframe width="960" height="600" src="https://www.youtube.com/embed/3WoM9ILuoJ8" frameborder="0" allowfullscreen></iframe>
+<iframe width="960" height="600" src="https://www.youtube.com/embed/EMoLYOeXZmU" frameborder="0" allowfullscreen></iframe>
 
 ### 20210806_stengard - Sequence 8
-<iframe width="960" height="600" src="https://www.youtube.com/embed/X7Oi9enc7xc" frameborder="0" allowfullscreen></iframe>
+<iframe width="960" height="600" src="https://www.youtube.com/embed/qEqL5Q3sv5Q" frameborder="0" allowfullscreen></iframe>
 
 ### 20210807_lundholm - Sequence 23
-<iframe width="960" height="600" src="https://www.youtube.com/embed/7OSrtETfVYw" frameborder="0" allowfullscreen></iframe>
+<iframe width="960" height="600" src="https://www.youtube.com/embed/Z1LE_Rz3AkA" frameborder="0" allowfullscreen></iframe>
 
 ## Image Annotations
 ### Ground truth annotations
-For all labeled image sequences, bounding box annotations are generated manually for the grassland weed Rumex. Each bounding box includes the whole plant with all attached leaves. If the plant consists of only one leaf, the single leaf is enclosed by a bounding box. On very dense weed images, it can be difficult to identify all plants with high certainty. Here, noisy labels can be expected. We differentiate between the two relevant sub-species *Rumex obtusifolius L.* and *Rumex crispus L.* and assign the relevant class to each bounding box. Both sub-species are equally undesired on dairy grassland fields and therefore, for most application it stands to reason to treat both species as one class. The decision for one of the above-mentioned classes was made purely based on the visual appearance in the images. 
+#### Weed enclosure with bounding box
+For all labeled image sequences, bounding box annotations are generated manually for the grassland weed Rumex. Each bounding box includes the whole plant with all attached leaves. If the plant consists of only one leaf, the single leaf is enclosed by a bounding box. On very dense weed images, it can be difficult to identify all plants with high certainty. Here, noisy labels can be expected. We differentiate between the two relevant sub-species *Rumex obtusifolius L.* and *Rumex crispus L.* and assign the relevant class to each bounding box. Both sub-species are equally undesired on dairy grassland fields and therefore, for most application it stands to reason to treat both species as one class. The decision for one of the above-mentioned classes was made purely based on the visual appearance in the images. [1]
 
-Additionally, we provide a small number of carefully manually-annotated ground truth masks for a random subset of 20 images per location and day, resulting in 100 images and 340 segmented bounding box crops in total.
 
-The following table summarizes the datapoints that have been collected and annotated on four different days and at three different farms. We show the number of foreground images -- including one or more Rumex objects --, the number of pure background images, the total number of annotations for both classes (*Rumex obtusifolius L.*, *Rumex crispus L.*), the total proportion of positive pixels vs all image pixels, as well as the average bounding box size as a percentage of the whole image size. Although we have a significantly higher number of foreground images containing at least one object, the Rumex plant is still highly under-represented when considering the positive pixel proportion for each data collection session. Moreover, it lists the exact number of pixel-wise annotations for both object classes and each data collection session.
+#### Pixel-wise weed segmentation Masks
+Additionally, we provide a small number of carefully manually-annotated ground truth masks for a random subset of 20 images per location and day, resulting in 100 images and 340 segmented bounding box crops in total. [1]
 
+#### Joint-stem with ellipse
+We supplement the data of that dataset with additional manually created keypoint annotations: For each bounding box in the dataset, a joint stem annotation has been performed. The joint stem annotation is represented with an ellipse, where the center indicates the position and the ellipse shape indicates the uncertainty of the human annotator. [2]
+
+#### Summary
+The following table summarizes the datapoints that have been collected and annotated on four different days and at three different farms. We show the number of foreground images -- including one or more Rumex objects --, the number of pure background images, the total number of annotations for both classes (*Rumex obtusifolius L.*, *Rumex crispus L.*), the total proportion of positive pixels vs all image pixels, as well as the average bounding box size as a percentage of the whole image size. Although we have a significantly higher number of foreground images containing at least one object, the Rumex plant is still highly under-represented when considering the positive pixel proportion for each data collection session. Moreover, it lists the exact number of pixel-wise annotations for both object classes and each data collection session. [1]
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;}
 .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
@@ -143,9 +149,9 @@ The following table summarizes the datapoints that have been collected and annot
 </table>
 
 ### Automatic generation pixel-wise annotations for the remaining bounding boxes.
-Bounding Box annotations provide a rough position of the weed plant in the image. For some applications, weed segmentation is crucial in order to estimate a more precise plant size and position. Unfortunately, manual pixel-wise object annotations are especially expensive to obtain for large amounts of training data. Therefore, we generated additional segmentation masks automatically, based on a very small amount of carefully manually-annotated ground truth masks. We hypothesise, that these few ground truth segmentation masks are sufficient to generate rough masks for the remaining bounding boxes in the dataset. Performing segmentation predictions for bounding box crops simplifies the problem to a great extent, because we only need to differentiate between foreground and background, while the foreground mask inherits the label of the bounding box. Furthermore, it is generally expected that no other negative plant objects with similar features (e.g. *Taraxacum*, *Cirsium*) lay within the bounding box crops. The manually segmented bounding box crops are used to train a segmentation network and generate segmentation masks for all remaining bounding box crops.
+Bounding Box annotations provide a rough position of the weed plant in the image. For some applications, weed segmentation is crucial in order to estimate a more precise plant size and position. Unfortunately, manual pixel-wise object annotations are especially expensive to obtain for large amounts of training data. Therefore, we generated additional segmentation masks automatically, based on a very small amount of carefully manually-annotated ground truth masks. We hypothesise, that these few ground truth segmentation masks are sufficient to generate rough masks for the remaining bounding boxes in the dataset. Performing segmentation predictions for bounding box crops simplifies the problem to a great extent, because we only need to differentiate between foreground and background, while the foreground mask inherits the label of the bounding box. Furthermore, it is generally expected that no other negative plant objects with similar features (e.g. *Taraxacum*, *Cirsium*) lay within the bounding box crops. The manually segmented bounding box crops are used to train a segmentation network and generate segmentation masks for all remaining bounding box crops. [1]
 
-The final model achieves an __mIoU of 0.776__ on the test--set. In the following figure, we show some qualitative results of the test--set with ground truth masks in the top row and model predictions in the bottom row. The majority of segmentation masks are precise enough in order to determine an approximate plant size as well as the center location of the plant. When the plant leaves are thin and resemble grass structure, the predictions are less reliable, which mainly occurs for the species *Rumex crispus L.*.
+The final model achieves an __mIoU of 0.776__ on the test--set. In the following figure, we show some qualitative results of the test--set with ground truth masks in the top row and model predictions in the bottom row. The majority of segmentation masks are precise enough in order to determine an approximate plant size as well as the center location of the plant. When the plant leaves are thin and resemble grass structure, the predictions are less reliable, which mainly occurs for the species *Rumex crispus L.*. [1]
 <p float="left">
   <img src="imgs/automatic_annotations_gt_vs_pred.png" width="600" />
 </p>
@@ -171,11 +177,17 @@ wget https://data.dtu.dk/ndownloader/files/39268307
 The Pytorch Datasets allows an easy entrypoint to work with the dataset.
 To visualize some example images, please run.
 ```
-python rumex_weeds/visualize_img_data.py --data_folder <path-to-your-extracted-RumexWeeds-folder> --num_images <number-of-images-to-display> --visualize_type <bbox/gt_mask/mask/all>
+python rumex_weeds/visualize_img_data.py --data_folder <path-to-your-extracted-RumexWeeds-folder> --num_images <number-of-images-to-display> --visualize_type <bbox/gt_mask/mask/ellipse/all>
 ```
+
+## References
+[1] Ronja Güldenring, Frits van Evert and Lazaros Nalpantidis,*RumexWeeds: A grassland dataset for agricultural robotics.*, Journal of Field Robotics, 2023
+
+[2] Jiahao Li, Ronja Güldenring, and Lazaros Nalpantidis, *Real-time joint-stem prediction for agricultural robots in grasslands using multi-task learning.*, vol. 13, no. 9, Agronomy, 2023
+
 ## Citation
 
-If you find this work useful in your research, please cite:
+If you find this work useful in your research, please consider citing:
 ```
 @article{https://doi.org/10.1002/rob.22196,
 author = {Güldenring, Ronja and van Evert, Frits K. and Nalpantidis, Lazaros},
@@ -187,4 +199,18 @@ url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/rob.22196},
 eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/rob.22196}
 }
 
+```
+```
+@Article{agronomy13092365,
+AUTHOR = {Li, Jiahao and Güldenring, Ronja and Nalpantidis, Lazaros},
+TITLE = {Real-Time Joint-Stem Prediction for Agricultural Robots in Grasslands Using Multi-Task Learning},
+JOURNAL = {Agronomy},
+VOLUME = {13},
+YEAR = {2023},
+NUMBER = {9},
+ARTICLE-NUMBER = {2365},
+URL = {https://www.mdpi.com/2073-4395/13/9/2365},
+ISSN = {2073-4395},
+DOI = {10.3390/agronomy13092365}
+}
 ```
