@@ -1,7 +1,7 @@
 # RumexWeeds: A Grassland Dataset for Agricultural Robotics.
 ## Useful Links:
 * [RumexWeeds Website](https://dtu-pas.github.io/RumexWeeds/)
-* Publication: [ToDo](https://github.com/dtu-pas/RumexWeeds)
+* [Publication](https://onlinelibrary.wiley.com/doi/10.1002/rob.22196)
 * [Dataset](https://data.dtu.dk/articles/dataset/Data_for_RumexWeeds_A_Grassland_Dataset_for_Agricultural_Robotics_/17040518)
 
 ## Abstract:
@@ -44,10 +44,13 @@ python rumex_weeds/visualize_img_data.py --data_folder <path-to-your-extracted-R
 
 If you find this work useful in your research, please cite:
 ```
-@article{RumexWeeds2021,
-  title={RumexWeeds: A Grassland Dataset for Agricultural Robotics.},
-  author={Güldenring, Ronja and Evert van, Frits and Nalpantidis, Lazaros},
-  booktitle={TBA},
-  year={2023}
+@article{https://doi.org/10.1002/rob.22196,
+author = {Güldenring, Ronja and van Evert, Frits K. and Nalpantidis, Lazaros},
+title = {RumexWeeds: A grassland dataset for agricultural robotics},
+journal = {Journal of Field Robotics},
+keywords = {agricultural robotics, grassland weed, object detection, precision farming, robotics dataset, Rumex crispus, Rumex obtusifolius},
+doi = {https://doi.org/10.1002/rob.22196},
+url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/rob.22196},
+eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/rob.22196}
 }
 ```
